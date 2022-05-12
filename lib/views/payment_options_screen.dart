@@ -220,14 +220,6 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
                                        style: TextStyle(color: Colors.grey, fontSize: 12.0)
                                    )
                                ),
-                               cashBack == "" || cashBack == null ? SizedBox(height: 0.0) : SizedBox(height: 4.0),
-                               cashBack == "" || cashBack == null ? SizedBox(height: 0.0) : SizedBox(width: 290,
-                                   child: Text("$cashBack",
-                                       maxLines: 2,
-                                       style: TextStyle(color: Colors.indigo, fontSize: 12.0, decoration: TextDecoration.underline)
-                                   )
-                               ),
-                               cashBack == "" || cashBack == null ? SizedBox(height: 0.0) : SizedBox(height: 4.0),
                                selectedIndex == 0 ? Text("Payable Amount: \u20B9 $payableAmount", style: TextStyle(color: Colors.black, fontSize: 14.0)) : Container()
                              ],
                            ),
@@ -335,35 +327,40 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
                    ],
                  ),
                ),
-               SizedBox(height: 15),
-               Card(
+               cashBack == "" || cashBack == null ? SizedBox(height: 0) : SizedBox(height: 15),
+               cashBack == "" || cashBack == null ? SizedBox(height: 0) : Card(
                  elevation: 4.0,
-                 color: Colors.white,
+                 color: Colors.indigo.shade50,
                  shape: RoundedRectangleBorder(
-                   side: BorderSide(color: Colors.white, width: 1),
+                   side: BorderSide(color: Colors.indigo, width: 1),
                    borderRadius: BorderRadius.circular(10),
                  ),
-                 child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     Padding(
-                       padding: const EdgeInsets.only(top: 10.0, left: 12.0, right: 12.0),
-                       child: Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Column(
-                             mainAxisAlignment: MainAxisAlignment.start,
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               const Text("Cash on delivery", style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w500)),
-                               SizedBox(height: 4.0),
-                             ],
-                           ),
-                         ],
+                 child: Padding(
+                   padding: const EdgeInsets.only(bottom: 10.0),
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.only(top: 10.0, left: 12.0, right: 12.0),
+                         child: Row(
+                           children: [
+                             Image.asset('assets/images/cashback_amt.png', scale: 3),
+                             SizedBox(width: 5),
+                             Text("Cashback", style: TextStyle(color: Colors.indigo, fontSize: 14))
+                           ],
+                         ),
                        ),
-                     ),
-                   ],
+                       Padding(
+                         padding: const EdgeInsets.only(top: 5.0, left: 12.0, right: 12.0),
+                         child: cashBack == "" || cashBack == null ? SizedBox(height: 0.0) : SizedBox(width: 290,
+                             child: Text("$cashBack",
+                                 maxLines: 2,
+                                 style: TextStyle(color: Colors.indigo, fontSize: 14.0, decoration: TextDecoration.none)
+                             )
+                         ),
+                       )
+                     ],
+                   ),
                  ),
                ),
              ],

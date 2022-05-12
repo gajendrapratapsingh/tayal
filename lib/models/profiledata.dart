@@ -47,9 +47,12 @@ class ProfileResponse {
   String uploadGstCertificate;
   String uploadPancard;
   String uploadAgricultureLicense;
+  String myReferralCode;
+  String userWallet;
 
   ProfileResponse(
-      {this.id,
+      {
+        this.id,
         this.username,
         this.email,
         this.landmark,
@@ -67,7 +70,10 @@ class ProfileResponse {
         this.uploadPhoto,
         this.uploadGstCertificate,
         this.uploadPancard,
-        this.uploadAgricultureLicense});
+        this.uploadAgricultureLicense,
+        this.myReferralCode,
+        this.userWallet
+      });
 
   ProfileResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -89,6 +95,8 @@ class ProfileResponse {
     uploadGstCertificate = json['upload_gst_certificate'];
     uploadPancard = json['upload_pancard'];
     uploadAgricultureLicense = json['upload_agriculture_license'];
+    myReferralCode = json['my_referral_code'];
+    userWallet = json['user_wallet'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -112,6 +120,8 @@ class ProfileResponse {
     data['upload_gst_certificate'] = this.uploadGstCertificate;
     data['upload_pancard'] = this.uploadPancard;
     data['upload_agriculture_license'] = this.uploadAgricultureLicense;
+    data['my_referral_code'] = this.myReferralCode;
+    data['user_wallet'] = this.userWallet;
     return data;
   }
 }

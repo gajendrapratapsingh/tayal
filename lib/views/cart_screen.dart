@@ -8,6 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tayal/components/loader.dart';
 import 'package:tayal/models/cartlistdata.dart';
 import 'package:tayal/network/api.dart';
 import 'package:http/http.dart' as http;
@@ -393,10 +394,11 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
+                              showLaoding(context);
                               setState(() {
                                 qty = (int.parse(qty) - 1).toString();
                               });
-                              _addtocart(id, offerprice, qty, rate);
+                              _addtocart(id, offerprice, qty, rate).then((value) => Navigator.of(context).pop());
                             },
                             child: Container(
                               height: 25,
@@ -422,10 +424,11 @@ class _CartScreenState extends State<CartScreen> {
                           const SizedBox(width: 10),
                           GestureDetector(
                             onTap: () {
+                              showLaoding(context);
                               setState(() {
                                 qty = (int.parse(qty) + 1).toString();
                               });
-                              _addtocart(id, offerprice, qty, rate);
+                              _addtocart(id, offerprice, qty, rate).then((value) => Navigator.of(context).pop());
                             },
                             child: Container(
                               height: 25,
@@ -567,8 +570,14 @@ class _CartScreenState extends State<CartScreen> {
           'Content-Type': 'application/json'
         });
     if (response.statusCode == 200) {
+      print(response.body);
       if (json.decode(response.body)['ErrorMessage'].toString() == "success") {
         showToast('Item deleted successfully from cart');
+        setState(() {
+          totalprice = json.decode(response.body)['Response']['total_price'].toString();
+          totalitems = json.decode(response.body)['Response']['count'];
+          prefs.setString('cartcount', json.decode(response.body)['Response']['count'].toString());
+        });
       }
     } else {
       print(response.body);

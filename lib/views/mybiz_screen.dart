@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tayal/themes/constant.dart';
 import 'package:tayal/views/help_screen.dart';
 import 'package:tayal/views/order_list_screen.dart';
+import 'package:tayal/views/wallet_statement_screen.dart';
 import 'package:tayal/widgets/navigation_drawer_widget.dart';
 
 class MyBizScreen extends StatefulWidget {
@@ -161,10 +162,15 @@ class _MyBizScreenState extends State<MyBizScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: size.height * 0.15,
-                      width: size.width * 0.50,
-                      child: SvgPicture.asset('assets/images/referral_card.svg', fit: BoxFit.fill),
+                    InkWell(
+                      onTap : (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => WalletStatementScreen()));
+                      },
+                      child: Container(
+                        height: size.height * 0.15,
+                        width: size.width * 0.50,
+                        child: SvgPicture.asset('assets/images/referral_card.svg', fit: BoxFit.fill),
+                      ),
                     ),
                     Container(
                       height: size.height * 0.15,
