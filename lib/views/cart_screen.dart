@@ -515,6 +515,7 @@ class _CartScreenState extends State<CartScreen> {
       if (json.decode(response.body)['ErrorCode'].toString() == "0") {
         setState(() {
           prefs.setString('cartcount', json.decode(response.body)['Response']['count'].toString());
+          totalitems = int.parse(prefs.getString('cartcount'));
         });
       }
     } else {

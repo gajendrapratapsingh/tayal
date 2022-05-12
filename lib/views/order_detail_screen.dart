@@ -159,7 +159,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                                   SizedBox(height: 10),
                                                   Container(
                                                     height: 30,
-                                                    width: 155,
+                                                    width: size.width * 0.45,
                                                     decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(5),
                                                         border: Border.all(color: Colors.indigo, width: 1)

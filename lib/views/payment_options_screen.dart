@@ -335,6 +335,37 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
                    ],
                  ),
                ),
+               SizedBox(height: 15),
+               Card(
+                 elevation: 4.0,
+                 color: Colors.white,
+                 shape: RoundedRectangleBorder(
+                   side: BorderSide(color: Colors.white, width: 1),
+                   borderRadius: BorderRadius.circular(10),
+                 ),
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Padding(
+                       padding: const EdgeInsets.only(top: 10.0, left: 12.0, right: 12.0),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Column(
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               const Text("Cash on delivery", style: TextStyle(color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w500)),
+                               SizedBox(height: 4.0),
+                             ],
+                           ),
+                         ],
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
              ],
            ),
          ),
