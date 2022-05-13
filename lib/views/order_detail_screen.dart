@@ -53,7 +53,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SvgPicture.asset('assets/images/back.svg', fit: BoxFit.fill),
+                    InkWell(
+                       onTap: (){
+                         Navigator.pop(context);
+                       },
+                       child: SvgPicture.asset('assets/images/back.svg', fit: BoxFit.fill),
+                    ),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.10),
                     Text("Order Detail", textAlign: TextAlign.center, style: TextStyle(fontStyle: FontStyle.normal, fontSize: 21, fontWeight: FontWeight.bold)),
                   ],

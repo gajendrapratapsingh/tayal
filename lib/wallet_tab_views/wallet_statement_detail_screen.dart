@@ -17,26 +17,6 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
   DateTime selectedStartDate = DateTime.now();
   DateTime selectedEndDate = DateTime.now();
 
-  String radioItem = 'Mango';
-
-  // Group Value for Radio Button.
-  int id = 1;
-
-  List<FilterStatement> fList = [
-    FilterStatement(
-      index: 1,
-      name: "Yesterday",
-    ),
-    FilterStatement(
-      index: 2,
-      name: "Today",
-    ),
-    FilterStatement(
-      index: 3,
-      name: "Month Till Data",
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -79,22 +59,10 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                                         16.0),
                                   ),
                                 ),
-                                /*Padding(
-                                    padding:
-                                    const EdgeInsets
-                                        .only(
-                                        right:
-                                        10.0),
-                                    child:
-                                    GestureDetector(
-                                      onTap: () {
-                                        _selectStartDate(
-                                            context);
-                                      },
-                                      child: Image
-                                          .asset(
-                                          'assets/icons/calendar.png'),
-                                    )),*/
+                                Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Icon(Icons.calendar_today_sharp, color: Colors.grey, size: 20,)
+                                ),
                               ],
                             )),
                       ),
@@ -130,19 +98,10 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                                         16.0),
                                   ),
                                 ),
-                                /*Padding(
-                                    padding:
-                                    const EdgeInsets
-                                        .only(
-                                        right:
-                                        10.0),
-                                    child:
-                                    GestureDetector(
-                                      onTap: () {
-                                        _selectedEndDate(context);
-                                      },
-                                      child: Image.asset('assets/icons/calendar.png'),
-                                    )),*/
+                                Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Icon(Icons.calendar_today_sharp, color: Colors.grey, size: 20,)
+                                ),
                               ],
                             )),
                       ),
@@ -150,40 +109,37 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                   ],
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.all(0.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                Radio(value: 1, groupValue: 'null', onChanged: (index) {}),
-                                Text('Yesterday')
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Radio(
-                                    value: 1, groupValue: 'null', onChanged: (index) {}),
-                                Text('Today')
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Radio(
-                                    value: 1, groupValue: 'null', onChanged: (index) {}),
-                                Text('Till Date')
-                              ],
-                            )
+                            Radio(value: 1, groupValue: 'null', onChanged: (index) {}),
+                            Text('Yesterday', style: TextStyle(fontSize: 12))
                           ],
                         ),
-                      ),
-                    ],
+                        Row(
+                          children: [
+                            Radio(
+                                value: 1, groupValue: 'null', onChanged: (index) {}),
+                            Text('Today', style: TextStyle(fontSize: 12))
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                                value: 1, groupValue: 'null', onChanged: (index) {}),
+                            Text('Month Till Date', style: TextStyle(fontSize: 12))
+                          ],
+                        )
+                      ],
+                    ),
                   ),
+                ],
               )
             ],
           ),
@@ -238,11 +194,11 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
     if (picked != null && picked != selectedStartDate)
       setState(() {
         selectedStartDate = picked;
-        startDate = selectedStartDate.year.toString() +
+        startDate = selectedStartDate.day.toString() +
             "-" +
             selectedStartDate.month.toString() +
             "-" +
-            selectedStartDate.day.toString();
+            selectedStartDate.year.toString();
       });
   }
 
@@ -279,11 +235,11 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
     if (picked != null && picked != selectedEndDate)
       setState(() {
         selectedEndDate = picked;
-        endDate = selectedEndDate.year.toString() +
+        endDate = selectedEndDate.day.toString() +
             "-" +
             selectedEndDate.month.toString() +
             "-" +
-            selectedEndDate.day.toString();
+            selectedEndDate.year.toString();
       });
   }
 }

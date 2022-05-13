@@ -37,7 +37,9 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
 
   Future _getCountBadge() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String mytoken = prefs.getString('token').toString();
+    _counter = int.parse(prefs.getString('cartcount'));
+    /*String mytoken = prefs.getString('token').toString();
+
     var response = await http.post(Uri.parse(BASE_URL + cartlist),
         headers: {'Authorization': 'Bearer $mytoken'});
     if (response.statusCode == 200) {
@@ -50,7 +52,7 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
       }
     } else {
       throw Exception('Failed to get data due to ${response.body}');
-    }
+    }*/
   }
 
   @override
@@ -437,9 +439,7 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
     );
     if (response.statusCode == 200)
     {
-      print(response.body);
       if(json.decode(response.body)['ErrorCode'].toString() == "0"){
-        //showToast('Product added successfully');
         setState(() {
           prefs.setString('cartcount', json.decode(response.body)['Response']['count'].toString());
           prefs.setString('carttotal', json.decode(response.body)['Response']['total_price'].toString());

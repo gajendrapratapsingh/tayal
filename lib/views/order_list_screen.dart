@@ -46,6 +46,7 @@ class _OrderlistScreenState extends State<OrderlistScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                             Navigator.pop(context);
                           },
                           child: SvgPicture.asset('assets/images/back.svg', fit: BoxFit.fill),
                         ),
