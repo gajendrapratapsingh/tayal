@@ -247,13 +247,13 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                       setState(() {
                         _txnlist.clear();
                       });
-                      _gettxndata("", "", "today");
+                      _gettxndata("0", "0", "today");
                     }
                     else{
                       setState(() {
                         _txnlist.clear();
                       });
-                      _gettxndata("", "", "month");
+                      _gettxndata("0", "0", "month");
                     }
                   }
 
