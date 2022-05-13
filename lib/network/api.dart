@@ -35,4 +35,5 @@ const String favouritelist = "favorites-list";
 const String orderlist = "orders/completed";
 const String orderdetail = "order-detail";
 const String wallettxn = "wallet/transaction";
+const String txnstatement = "transaction-statement";
 

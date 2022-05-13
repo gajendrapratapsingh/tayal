@@ -154,7 +154,7 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
                                SizedBox(height: 4.0),
                                Text("Available Amount: \u20B9 $walletAmount", style: TextStyle(color: Colors.grey, fontSize: 12.0)),
                                SizedBox(height: 4.0),
-                               selectedIndex == 0 && double.parse(payableAmount) > double.parse("$walletAmount") ? Text("Payable Amount: \u20B9"+(double.parse(payableAmount)-double.parse("$walletAmount")).toString(), style: TextStyle(color: Colors.black, fontSize: 14.0)) : Text("Payable Amount: \u20B9"+(double.parse(payableAmount)).toString())
+                               selectedIndex == 0 && double.parse(payableAmount) > double.parse("$walletAmount") ? Text("Payable Amount: \u20B9"+((double.parse(payableAmount)-double.parse("$walletAmount")).toStringAsFixed(2)).toString(), style: TextStyle(color: Colors.black, fontSize: 14.0)) : Text("Payable Amount: \u20B9"+((double.parse(payableAmount)).toStringAsFixed(2)).toString())
                              ],
                            ),
                            CustomRadioButton(0)
@@ -181,7 +181,7 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
                                ),
                                child: Padding(
                                  padding: const EdgeInsets.only(top: 15.0),
-                                 child: double.parse(payableAmount) > double.parse("$walletAmount") ? Text("PAY \u20B9 "+(double.parse(payableAmount)-double.parse("$walletAmount")).toString()+" BY ONLINE", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)) : Text("PAY \u20B9 "+(double.parse(payableAmount)).toString()+" BY WALLET", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
+                                 child: double.parse(payableAmount) > double.parse("$walletAmount") ? Text("PAY \u20B9 "+((double.parse(payableAmount)-double.parse("$walletAmount")).toStringAsFixed(2)).toString()+" BY ONLINE", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)) : Text("PAY \u20B9 "+((double.parse(payableAmount)).toStringAsFixed(2)).toString()+" BY WALLET", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
                                ),
                              ),
                            ),

@@ -63,7 +63,9 @@ class _WalletStatementScreenState extends State<WalletStatementScreen> with Sing
                   child: Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: Icon(Icons.arrow_back, color: Colors.white)),
                       Text("Wallet Statement",
                           style: TextStyle(color: Colors.white, fontSize: 16))

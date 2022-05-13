@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tayal/components/filterStatement.dart';
+import 'package:tayal/network/api.dart';
+import 'package:tayal/themes/constant.dart';
 
 class WalletStatementTabScrren extends StatefulWidget {
   const WalletStatementTabScrren({Key key}) : super(key: key);
@@ -16,6 +21,17 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
   DateTime selectedDate = DateTime.now();
   DateTime selectedStartDate = DateTime.now();
   DateTime selectedEndDate = DateTime.now();
+
+  List<dynamic> _txnlist = [];
+
+  int _value = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _gettxndata(startDate, endDate, "tilldate");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,21 +134,49 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                       children: [
                         Row(
                           children: [
-                            Radio(value: 1, groupValue: 'null', onChanged: (index) {}),
-                            Text('Yesterday', style: TextStyle(fontSize: 12))
+                            Radio(
+                                value: 1,
+                                groupValue: _value,
+                                activeColor: Colors.indigo,
+                                onChanged: (value) {
+                                    setState(() {
+                                        startDate = "From Date";
+                                        endDate = "To Date";
+                                        _value = value;
+                                    });
+                                }),
+                            const Text('Yesterday', style: TextStyle(fontSize: 12))
                           ],
                         ),
                         Row(
                           children: [
                             Radio(
-                                value: 1, groupValue: 'null', onChanged: (index) {}),
+                                value: 2,
+                                activeColor: Colors.indigo,
+                                groupValue: _value, onChanged: (value) {
+                                 setState(() {
+                                     startDate = "From Date";
+                                     endDate = "To Date";
+                                    _value = value;
+                                 });
+                            }),
                             Text('Today', style: TextStyle(fontSize: 12))
                           ],
                         ),
                         Row(
                           children: [
                             Radio(
-                                value: 1, groupValue: 'null', onChanged: (index) {}),
+                                value: 3,
+                                groupValue: _value,
+                                activeColor: Colors.indigo,
+                                onChanged: (value) {
+                                     setState(() {
+                                        startDate = "From Date";
+                                        endDate = "To Date";
+                                        _value = value;
+                                     });
+                                 }
+                            ),
                             Text('Month Till Date', style: TextStyle(fontSize: 12))
                           ],
                         )
@@ -140,6 +184,33 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                     ),
                   ),
                 ],
+              ),
+              Expanded(
+                  child: _txnlist.isEmpty || _txnlist.length == 0 ? Padding(
+                    padding: EdgeInsets.only(bottom: size.height * 0.15),
+                    child: Center(
+                      child: Text("Data not found", style: TextStyle(color: Colors.black, fontSize: 16)),
+                    ),
+                  )
+                      : ListView.separated(
+                    itemCount: _txnlist.length,
+                    padding: EdgeInsets.zero,
+                    separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(height: 1, color: Colors.grey),
+                    itemBuilder: (BuildContext context, int index) {
+                      if(_txnlist.isEmpty || _txnlist.length == 0){
+                        return Center(child: CircularProgressIndicator(color: Colors.indigo));
+                      }
+                      else{
+                        return ListTile(
+                          title: Text('${_txnlist[index]['created_at'].toString()}', style: TextStyle(color: Colors.indigo.shade400, fontSize: 16)),
+                          subtitle: Text('${_txnlist[index]['description'].toString()}', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                          trailing: _txnlist[index]['transaction_type'].toString() == "credit" ? Text('\u20B9 ${_txnlist[index]['update_balance'].toString()} Credit', style: TextStyle(color: Colors.green, fontSize: 12)) : Text('\u20B9 ${_txnlist[index]['update_balance'].toString()} Debit', style: TextStyle(color: Colors.red, fontSize: 12)),
+                        );
+                      }
+
+                    },
+                  )
               )
             ],
           ),
@@ -147,12 +218,53 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
               left: 0,
               right: 0,
               bottom: 0,
-              child: Container(
-                height: 55,
-                width: double.infinity,
-                color: Colors.indigo,
-                alignment: Alignment.center,
-                child: Text("GET STATEMENT", style: TextStyle(color: Colors.white, fontSize: 16)),
+              child: InkWell(
+                onTap: (){
+                  if(_value == 0){
+                    if(startDate == "From Date"){
+                      showToast('Please select start date');
+                      return;
+                    }
+                    else if(endDate == "To Date"){
+                      showToast('Please select start date');
+                      return;
+                    }
+                    else {
+                      setState(() {
+                        _txnlist.clear();
+                      });
+                      _gettxndata(startDate, endDate, "datewise");
+                    }
+                  }
+                  else{
+                    if(_value == 1){
+                      setState(() {
+                        _txnlist.clear();
+                      });
+                      _gettxndata("0","0", "yesterday");
+                    }
+                    else if(_value == 2){
+                      setState(() {
+                        _txnlist.clear();
+                      });
+                      _gettxndata("", "", "today");
+                    }
+                    else{
+                      setState(() {
+                        _txnlist.clear();
+                      });
+                      _gettxndata("", "", "month");
+                    }
+                  }
+
+                },
+                child: Container(
+                  height: 55,
+                  width: double.infinity,
+                  color: Colors.indigo,
+                  alignment: Alignment.center,
+                  child: Text("GET STATEMENT", style: TextStyle(color: Colors.white, fontSize: 16)),
+                ),
               )
           )
         ],
@@ -164,8 +276,8 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: selectedStartDate,
-      firstDate: DateTime.now().subtract(Duration(days: 0)),
-      //firstDate: DateTime(2015, 8),
+      //firstDate: DateTime.now().subtract(Duration(days: 0)),
+      firstDate: DateTime(2015, 8),
       lastDate: DateTime(2101),
       builder: (BuildContext context, Widget child) {
         return Theme(
@@ -193,12 +305,13 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
 
     if (picked != null && picked != selectedStartDate)
       setState(() {
+        _value = 0;
         selectedStartDate = picked;
-        startDate = selectedStartDate.day.toString() +
+        startDate = selectedStartDate.year.toString() +
             "-" +
             selectedStartDate.month.toString() +
             "-" +
-            selectedStartDate.year.toString();
+            selectedStartDate.day.toString();
       });
   }
 
@@ -235,11 +348,59 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
     if (picked != null && picked != selectedEndDate)
       setState(() {
         selectedEndDate = picked;
-        endDate = selectedEndDate.day.toString() +
+        endDate = selectedEndDate.year.toString() +
             "-" +
             selectedEndDate.month.toString() +
             "-" +
-            selectedEndDate.year.toString();
+            selectedEndDate.day.toString();
       });
+  }
+
+
+  Future _gettxndata(String startdate, String enddate, String filtertype) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String mytoken = prefs.getString('token').toString();
+    print(jsonEncode({
+      "start_date": startdate,
+      "end_date": enddate,
+    }));
+    final body = {
+      "start_date": startdate,
+      "end_date": enddate,
+    };
+    var response = await http.post(Uri.parse(BASE_URL + txnstatement),
+        body: json.encode(body),
+        headers: {
+          'Authorization': 'Bearer $mytoken',
+          'Content-Type': 'application/json'
+        });
+    if(response.statusCode == 200) {
+      print(response.body);
+      if (json.decode(response.body)['ErrorCode'].toString() == "0") {
+        if(filtertype == "datewise"){
+          setState((){
+            _txnlist = json.decode(response.body)['Response']['date_filter'];
+          });
+        }
+        else if(filtertype == "today") {
+          setState((){
+            _txnlist = json.decode(response.body)['Response']['today'];
+          });
+        }
+        else if(filtertype == "yesterday"){
+          setState((){
+            _txnlist = json.decode(response.body)['Response']['yesterday'];
+          });
+        }
+        else {
+          setState((){
+            _txnlist = json.decode(response.body)['Response']['till_date'];
+          });
+        }
+
+      }
+    } else {
+      throw Exception('Failed to get data due to ${response.body}');
+    }
   }
 }
