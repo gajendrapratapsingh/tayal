@@ -103,7 +103,7 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
                           ),
                           SizedBox(width: 10),
                           Expanded(
-                            child: GestureDetector(
+                            child: InkWell(
                               onTap: (){
                                 //showCategoriesSheet();
                               },
@@ -262,7 +262,7 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(left: 7.0, right: 7.0),
-                                          child: Text(_searchResult[index]['short_description'].toString(), maxLines: 2,
+                                          child: _searchResult[index]['short_description'] == null || _searchResult[index]['short_description'] == "" ? SizedBox() : Text(_searchResult[index]['short_description'].toString(), maxLines: 2,
                                               textAlign: TextAlign.start,
                                               style: TextStyle(color: Colors.grey, fontSize: 10)),
                                         ),
@@ -283,7 +283,17 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
                                         left: 10,
                                         bottom: 5,
                                         right: 10,
-                                        child: _searchResult[index]['quantity'] == 0 ? InkWell(
+                                        child: _searchResult[index]['is_stock'].toString() == "0" ? Container(
+                                          height: 35.0,
+                                          width: 85.0,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                              border: Border.all(width: 1, color: Colors.black)
+                                          ),
+                                          child: Text("Stock not available", textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.black)),
+                                        ) : _searchResult[index]['quantity'] == 0 ? InkWell(
                                           onTap: (){
                                             setState(() {
                                               _searchResult[index]['quantity'] = "1";
@@ -329,7 +339,7 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                GestureDetector(
+                                                InkWell(
                                                   onTap: (){
                                                     setState(() {
                                                       _searchResult[index]['quantity'] = int.parse(_searchResult[index]['quantity'].toString()) - 1;
@@ -364,16 +374,27 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
                                                 const SizedBox(width: 12),
                                                 Text(_searchResult[index]['quantity'].toString(), style: TextStyle(color: Colors.indigo, fontSize: 16)),
                                                 const SizedBox(width: 12),
-                                                GestureDetector(
+                                                InkWell(
                                                   onTap: (){
-                                                    setState(() {
-                                                      _searchResult[index]['quantity'] = int.parse(_searchResult[index]['quantity'].toString()) + 1;
-                                                    });
-                                                    _addtocart(
-                                                        _searchResult[index]['product_id'].toString(),
-                                                        _searchResult[index]['discount_price'].toString(),
-                                                        _searchResult[index]['quantity'].toString(),
-                                                        _searchResult[index]['mrp'].toString());
+                                                    if(int.parse(_searchResult[index]['quantity'].toString()) < int.parse(_searchResult[index]['current_stock'].toString())){
+                                                      setState(() {
+                                                        _searchResult[index]['quantity'] = int.parse(_searchResult[index]['quantity'].toString()) + 1;
+                                                      });
+                                                      _addtocart(
+                                                          _searchResult[index]['product_id'].toString(),
+                                                          _searchResult[index]['discount_price'].toString(),
+                                                          _searchResult[index]['quantity'].toString(),
+                                                          _searchResult[index]['mrp'].toString());
+                                                    }
+                                                    else {
+                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                        const SnackBar(
+                                                            duration: Duration(seconds: 1, milliseconds: 500),
+                                                            backgroundColor: Colors.red,
+                                                            content: Text('Stock not available', style: TextStyle(color: Colors.white))
+                                                        )
+                                                      );
+                                                    }
                                                   },
                                                   child: Container(
                                                     height: 24,
@@ -429,7 +450,7 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
   }
 
   Widget showItemWidget() {
-    return GestureDetector(
+    return InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
         },
@@ -572,7 +593,6 @@ class _SubCategoryProductScreenState extends State<SubCategoryProductScreen> {
   }*/
 
   Future _getcategoryproducts(String id) async {
-    print(id);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String mytoken = prefs.getString('token').toString();
     _searchResult.clear();
@@ -688,10 +708,8 @@ class CategoryItem extends StatelessWidget {
               color: Colors.grey,
               image: DecorationImage(
                   image: image != null
-                      ? CachedNetworkImageProvider(
-                      image)
-                      : AssetImage(
-                      'assets/images/no_image.png'),
+                      ? CachedNetworkImageProvider(image)
+                      : AssetImage('assets/images/no_image.png'),
                   fit: BoxFit.cover
               ),
             ),

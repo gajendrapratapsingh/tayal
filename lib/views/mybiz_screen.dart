@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tayal/themes/constant.dart';
 import 'package:tayal/views/help_screen.dart';
+import 'package:tayal/views/ledger_screen.dart';
+import 'package:tayal/views/notification_screen.dart';
 import 'package:tayal/views/order_list_screen.dart';
+import 'package:tayal/views/profile_screen.dart';
 import 'package:tayal/views/wallet_statement_screen.dart';
 import 'package:tayal/widgets/navigation_drawer_widget.dart';
 
@@ -124,10 +127,15 @@ class _MyBizScreenState extends State<MyBizScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        height: size.height * 0.15,
-                        width: size.width * 0.50,
-                        child: SvgPicture.asset('assets/images/profile_card.svg', fit: BoxFit.fill),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+                        },
+                        child: Container(
+                          height: size.height * 0.15,
+                          width: size.width * 0.50,
+                          child: SvgPicture.asset('assets/images/profile_card.svg', fit: BoxFit.fill),
+                        ),
                       ),
                       InkWell(
                         onTap: (){
@@ -146,15 +154,25 @@ class _MyBizScreenState extends State<MyBizScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: size.height * 0.15,
-                      width: size.width * 0.50,
-                      child: SvgPicture.asset('assets/images/ledger_card.svg', fit: BoxFit.fill),
+                    InkWell(
+                      onTap : (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LedgerStatementScreen()));
+                      },
+                      child: Container(
+                        height: size.height * 0.15,
+                        width: size.width * 0.50,
+                        child: SvgPicture.asset('assets/images/ledger_card.svg', fit: BoxFit.fill),
+                      ),
                     ),
-                    Container(
-                      height: size.height * 0.15,
-                      width: size.width * 0.50,
-                      child: SvgPicture.asset('assets/images/payment_card.svg', fit: BoxFit.fill),
+                    InkWell(
+                      onTap : (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LedgerStatementScreen()));
+                      },
+                      child: Container(
+                        height: size.height * 0.15,
+                        width: size.width * 0.50,
+                        child: SvgPicture.asset('assets/images/payment_card.svg', fit: BoxFit.fill),
+                      ),
                     ),
                   ],
                 ),
@@ -172,20 +190,30 @@ class _MyBizScreenState extends State<MyBizScreen> {
                         child: SvgPicture.asset('assets/images/referral_card.svg', fit: BoxFit.fill),
                       ),
                     ),
-                    Container(
-                      height: size.height * 0.15,
-                      width: size.width * 0.50,
-                      child: SvgPicture.asset('assets/images/help_card.svg', fit: BoxFit.fill),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => HelpScreen()));
+                      },
+                      child: Container(
+                        height: size.height * 0.15,
+                        width: size.width * 0.50,
+                        child: SvgPicture.asset('assets/images/help_card.svg', fit: BoxFit.fill),
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 5),
                 Align(
                   alignment: Alignment.center,
-                  child: Container(
-                    height: size.height * 0.15,
-                    width: size.width * 0.50,
-                    child: SvgPicture.asset('assets/images/notification_card.svg', fit: BoxFit.fill),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
+                    },
+                    child: Container(
+                      height: size.height * 0.15,
+                      width: size.width * 0.50,
+                      child: SvgPicture.asset('assets/images/notification_card.svg', fit: BoxFit.fill),
+                    ),
                   ),
                 )
               ],

@@ -368,7 +368,7 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
       "start_date": startdate,
       "end_date": enddate,
     };
-    var response = await http.post(Uri.parse(BASE_URL + txnstatement),
+    var response = await http.post(Uri.parse(BASE_URL + wallettxnstatement),
         body: json.encode(body),
         headers: {
           'Authorization': 'Bearer $mytoken',
@@ -397,7 +397,6 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
             _txnlist = json.decode(response.body)['Response']['till_date'];
           });
         }
-
       }
     } else {
       throw Exception('Failed to get data due to ${response.body}');

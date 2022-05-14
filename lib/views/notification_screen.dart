@@ -28,8 +28,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: SvgPicture.asset('assets/images/back.svg'),
                     ),
                     const Text("Notifications", textAlign: TextAlign.center, style: TextStyle(fontStyle: FontStyle.normal, fontSize: 21, fontWeight: FontWeight.bold)),
