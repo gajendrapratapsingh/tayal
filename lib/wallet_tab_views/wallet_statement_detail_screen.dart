@@ -101,8 +101,8 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                                       fontSize: 16.0),
                                 ),
                               ),
-                              Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 10.0),
                                   child: Icon(
                                     Icons.calendar_today_sharp,
                                     color: Colors.grey,
@@ -209,18 +209,18 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                                       fontSize: 16)),
                               subtitle: Text(
                                   '${_txnlist[index]['description'].toString()}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.grey, fontSize: 12)),
                               trailing: _txnlist[index]['transaction_type']
                                           .toString() ==
                                       "credit"
                                   ? Text(
                                       '\u20B9 ${_txnlist[index]['update_balance'].toString()} Credit',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.green, fontSize: 12))
                                   : Text(
                                       '\u20B9 ${_txnlist[index]['update_balance'].toString()} Debit',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.red, fontSize: 12)),
                             );
                           }
@@ -271,8 +271,7 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                 width: double.infinity,
                 color: Colors.indigo,
                 alignment: Alignment.center,
-                child: Text("GET STATEMENT",
-                    style: TextStyle(color: Colors.white, fontSize: 16)),
+                child: const Text("GET STATEMENT", style: TextStyle(color: Colors.white, fontSize: 16)),
               ),
             ))
       ],
@@ -368,8 +367,7 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
   }
 
   bool isLoading = false;
-  Future _gettxndata(
-      String startdate, String enddate, String filtertype) async {
+  Future _gettxndata(String startdate, String enddate, String filtertype) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String mytoken = prefs.getString('token').toString();
     print(jsonEncode({
@@ -387,7 +385,6 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
           'Content-Type': 'application/json'
         });
     if (response.statusCode == 200) {
-      print(response.body);
       if (json.decode(response.body)['ErrorCode'].toString() == "0") {
         if (filtertype == "datewise") {
           setState(() {

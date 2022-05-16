@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tayal/themes/constant.dart';
 
 class HelpScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Image.asset('assets/images/back_image.png', fit: BoxFit.fill),
+                    SvgPicture.asset('assets/images/back.svg', fit: BoxFit.fill),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.18),
                     Text("Help", textAlign: TextAlign.center, style: TextStyle(fontStyle: FontStyle.normal, fontSize: 21, fontWeight: FontWeight.bold)),
                   ],

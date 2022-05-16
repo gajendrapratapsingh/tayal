@@ -26,6 +26,7 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
 
   List<dynamic> _searchResult = [];
   Future<dynamic> _myfavouriteproducts;
+  bool _loading = false;
 
   @override
   void initState() {
@@ -166,7 +167,7 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(left: 7.0, right: 7.0),
-                                              child: Text(_searchResult[index]['short_description'].toString(), maxLines: 2,
+                                              child: _searchResult[index]['short_description'] == null || _searchResult[index]['short_description'] == "" ? SizedBox() : Text(_searchResult[index]['short_description'].toString(), maxLines: 2,
                                                   textAlign: TextAlign.start,
                                                   style: TextStyle(color: Colors.grey,
                                                   fontSize: 10)),
@@ -188,10 +189,20 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
                                             left: 10,
                                             bottom: 5,
                                             right: 10,
-                                            child: _searchResult[index]['quantity'] == 0 ? InkWell(
+                                            child: _searchResult[index]['is_stock'].toString() == "0"  || _searchResult[index]['is_stock'].toString() == null ? Container(
+                                              height: 35.0,
+                                              width: 85.0,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                                  border: Border.all(width: 1, color: Colors.black)
+                                              ),
+                                              child: Text("Stock not available", textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: Colors.black)),
+                                            ) : _searchResult[index]['quantity'] == 0 ? InkWell(
                                               onTap: (){
                                                 setState(() {
-                                                  _searchResult[index]['quantity'] = 1;
+                                                  _searchResult[index]['quantity'] = "1";
                                                   _addtocart(
                                                       _searchResult[index]['product_id'].toString(),
                                                       _searchResult[index]['discount_price'].toString(),
@@ -234,7 +245,7 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    GestureDetector(
+                                                    InkWell(
                                                       onTap: (){
                                                         setState(() {
                                                           _searchResult[index]['quantity'] = int.parse(_searchResult[index]['quantity'].toString()) - 1;
@@ -269,16 +280,27 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
                                                     const SizedBox(width: 12),
                                                     Text(_searchResult[index]['quantity'].toString(), style: TextStyle(color: Colors.indigo, fontSize: 16)),
                                                     const SizedBox(width: 12),
-                                                    GestureDetector(
+                                                    InkWell(
                                                       onTap: (){
-                                                        setState(() {
-                                                          _searchResult[index]['quantity'] = int.parse(_searchResult[index]['quantity'].toString()) + 1;
-                                                        });
-                                                        _addtocart(
-                                                            _searchResult[index]['product_id'].toString(),
-                                                            _searchResult[index]['discount_price'].toString(),
-                                                            _searchResult[index]['quantity'].toString(),
-                                                            _searchResult[index]['mrp'].toString());
+                                                        if(int.parse(_searchResult[index]['quantity'].toString()) < int.parse(_searchResult[index]['current_stock'].toString())){
+                                                          setState(() {
+                                                            _searchResult[index]['quantity'] = int.parse(_searchResult[index]['quantity'].toString()) + 1;
+                                                          });
+                                                          _addtocart(
+                                                              _searchResult[index]['product_id'].toString(),
+                                                              _searchResult[index]['discount_price'].toString(),
+                                                              _searchResult[index]['quantity'].toString(),
+                                                              _searchResult[index]['mrp'].toString());
+                                                        }
+                                                        else {
+                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                              const SnackBar(
+                                                                  duration: Duration(seconds: 1, milliseconds: 500),
+                                                                  backgroundColor: Colors.red,
+                                                                  content: Text('Stock not available', style: TextStyle(color: Colors.white))
+                                                              )
+                                                          );
+                                                        }
                                                       },
                                                       child: Container(
                                                         height: 24,
@@ -411,7 +433,6 @@ class _FavouriteProductScreenState extends State<FavouriteProductScreen> {
     );
     if (response.statusCode == 200)
     {
-      print(response.body);
       setState(() {
         _searchResult = json.decode(response.body)['Response'];
       });
