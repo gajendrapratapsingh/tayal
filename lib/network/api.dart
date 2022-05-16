@@ -36,6 +36,6 @@ const String orderlist = "orders/completed";
 const String orderdetail = "order-detail";
 const String wallettxn = "wallet/transaction";
 const String wallettxnstatement = "transaction-statement";
-const String txnstatement = "";
+const String txnstatement = "transaction-list";
 const String ledger = "";
 
