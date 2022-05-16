@@ -34,6 +34,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   int proQty = 1;
   int _counter = 0;
+  int current_stock = 0;
 
   //int _totalprice = 0;
 
@@ -308,15 +309,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                              children: [
                                                IconButton(onPressed: (){
-                                                 if(proQty == 1){
-                                                   showToast("Already select minimum quantity");
+                                                 if(proQty == 0){
+                                                   showToast("Sorry!! Add minimum 1 quantity in cart");
                                                  }
                                                  else{
-                                                   setState(() {
-                                                     proQty = proQty - 1;
-                                                   });
+                                                   if(proQty == 1){
+                                                     showToast("Already select minimum quantity");
+                                                   }
+                                                   else{
+                                                     setState(() {
+                                                       proQty = proQty - 1;
+                                                     });
+                                                   }
                                                  }
-
                                                }, icon: Icon(Icons.remove, size: 24, color: Colors.white)),
                                                Container(
                                                  height: 24,
@@ -329,9 +334,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                  child: Text(proQty == 1 ? "1" : proQty.toString(), style: TextStyle(color: Colors.indigo, fontSize: 12)),
                                                ),
                                                IconButton(onPressed: (){
-                                                 setState(() {
-                                                   proQty = proQty + 1;
-                                                 });
+                                                 if(int.parse(proQty.toString()) < int.parse(current_stock.toString())){
+                                                   setState(() {
+                                                     proQty = proQty + 1;
+                                                   });
+                                                 }
+                                                 else{
+                                                   ScaffoldMessenger.of(context).showSnackBar(
+                                                       const SnackBar(
+                                                           duration: Duration(seconds: 1, milliseconds: 500),
+                                                           backgroundColor: Colors.red,
+                                                           content: Text('Stock not available', style: TextStyle(color: Colors.white))
+                                                       )
+                                                   );
+                                                 }
+
                                                }, icon: Icon(Icons.add, size: 24, color: Colors.white)),
                                              ],
                                            )
@@ -463,6 +480,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
          itemlength = json.decode(response.body)['Response']['details']['length'];
          itemwidth = json.decode(response.body)['Response']['details']['width'];
          itemheight = json.decode(response.body)['Response']['details']['height'];
+
+         current_stock = json.decode(response.body)['Response']['current_stock'];
 
          final document = parse(json.decode(response.body)['Response']['group_price'].toString());
          groupprice = parse(document.body.text).documentElement.text;
