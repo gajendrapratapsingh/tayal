@@ -181,16 +181,18 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
               ],
             ),
             Expanded(
-                child: _txnlist.isEmpty || _txnlist.length == 0
-                    ? Padding(
-                        padding: EdgeInsets.only(bottom: size.height * 0.15),
-                        child: Center(
-                          child: Text("Data not found",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16)),
-                        ),
-                      )
-                    : ListView.separated(
+                child: Padding(
+                    padding: EdgeInsets.only(bottom: 45.0),
+                    child: _txnlist.isEmpty || _txnlist.length == 0
+                        ? Padding(
+                      padding: EdgeInsets.only(bottom: size.height * 0.08),
+                      child: Center(
+                        child: Text("Data not found",
+                            style:
+                            TextStyle(color: Colors.black, fontSize: 16)),
+                      ),
+                    )
+                        : ListView.separated(
                       itemCount: _txnlist.length,
                       padding: EdgeInsets.zero,
                       separatorBuilder: (BuildContext context, int index) =>
@@ -225,7 +227,9 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                           );
                         }
                       },
-                    ))
+                    ),
+                )
+            ),
           ],
         ),
         Positioned(
