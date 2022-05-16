@@ -123,7 +123,7 @@ class _MyBizScreenState extends State<MyBizScreen> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 0, right: 0),
+                  padding: EdgeInsets.only(left: 5, right: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,9 +132,28 @@ class _MyBizScreenState extends State<MyBizScreen> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
                         },
                         child: Container(
-                          height: size.height * 0.15,
-                          width: size.width * 0.50,
-                          child: SvgPicture.asset('assets/images/profile_card.svg', fit: BoxFit.fill),
+                          height: size.height * 0.12,
+                          width: size.width * 0.45,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0))
+                          ),
+                          child: Card(
+                            elevation: 4.0,
+                            color: Colors.indigo.shade50,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                  SizedBox(width: 15),
+                                  Image.asset('assets/icons/profile_icon.png', scale: 7),
+                                  SizedBox(width: 10.0),
+                                  Text("Profile", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+
+                              ],
+                            ),
+                          )
                         ),
                       ),
                       InkWell(
@@ -142,67 +161,163 @@ class _MyBizScreenState extends State<MyBizScreen> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => OrderlistScreen()));
                         },
                         child: Container(
-                          height: size.height * 0.15,
-                          width: size.width * 0.50,
-                          child: SvgPicture.asset('assets/images/order_card.svg', fit: BoxFit.fill),
+                            height: size.height * 0.12,
+                            width: size.width * 0.45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8.0))
+                            ),
+                            child: Card(
+                              elevation: 4.0,
+                              color: Colors.indigo.shade50,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 15),
+                                  Image.asset('assets/icons/order_icon.png', scale: 7),
+                                  SizedBox(width: 10.0),
+                                  Text("Orders", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+                                ],
+                              ),
+                            )
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap : (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LedgerStatementScreen()));
-                      },
-                      child: Container(
-                        height: size.height * 0.15,
-                        width: size.width * 0.50,
-                        child: SvgPicture.asset('assets/images/ledger_card.svg', fit: BoxFit.fill),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap : (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LedgerStatementScreen()));
+                        },
+                        child: Container(
+                            height: size.height * 0.12,
+                            width: size.width * 0.45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8.0))
+                            ),
+                            child: Card(
+                              elevation: 4.0,
+                              color: Colors.indigo.shade50,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 15),
+                                  Image.asset('assets/icons/ledger_icon.png', scale: 7),
+                                  SizedBox(width: 10.0),
+                                  Text("Ledger", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+                                ],
+                              ),
+                            )
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap : (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LedgerStatementScreen()));
-                      },
-                      child: Container(
-                        height: size.height * 0.15,
-                        width: size.width * 0.50,
-                        child: SvgPicture.asset('assets/images/payment_card.svg', fit: BoxFit.fill),
+                      InkWell(
+                        onTap : (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LedgerStatementScreen()));
+                        },
+                        child: Container(
+                            height: size.height * 0.12,
+                            width: size.width * 0.45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8.0))
+                            ),
+                            child: Card(
+                              elevation: 4.0,
+                              color: Colors.indigo.shade50,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 15),
+                                  Image.asset('assets/icons/payment_icon.png', scale: 7),
+                                  SizedBox(width: 10.0),
+                                  Text("Payments", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+                                ],
+                              ),
+                            )
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap : (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => WalletStatementScreen()));
-                      },
-                      child: Container(
-                        height: size.height * 0.15,
-                        width: size.width * 0.50,
-                        child: SvgPicture.asset('assets/images/referral_card.svg', fit: BoxFit.fill),
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap : (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => WalletStatementScreen()));
+                        },
+                        child: Container(
+                            height: size.height * 0.12,
+                            width: size.width * 0.45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8.0))
+                            ),
+                            child: Card(
+                              elevation: 4.0,
+                              color: Colors.indigo.shade50,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 15),
+                                  Image.asset('assets/icons/referral_icon.png', scale: 7),
+                                  SizedBox(width: 10.0),
+                                  Text("Referral", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+                                ],
+                              ),
+                            )
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => HelpScreen()));
-                      },
-                      child: Container(
-                        height: size.height * 0.15,
-                        width: size.width * 0.50,
-                        child: SvgPicture.asset('assets/images/help_card.svg', fit: BoxFit.fill),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HelpScreen()));
+                        },
+                        child: Container(
+                            height: size.height * 0.12,
+                            width: size.width * 0.45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(8.0))
+                            ),
+                            child: Card(
+                              elevation: 4.0,
+                              color: Colors.indigo.shade50,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(width: 15),
+                                  Image.asset('assets/icons/help_icon.png', scale: 7),
+                                  SizedBox(width: 10.0),
+                                  Text("Help", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+                                ],
+                              ),
+                            )
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 15),
                 Align(
                   alignment: Alignment.center,
                   child: InkWell(
@@ -210,9 +325,27 @@ class _MyBizScreenState extends State<MyBizScreen> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
                     },
                     child: Container(
-                      height: size.height * 0.15,
-                      width: size.width * 0.50,
-                      child: SvgPicture.asset('assets/images/notification_card.svg', fit: BoxFit.fill),
+                        height: size.height * 0.12,
+                        width: size.width * 0.50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0))
+                        ),
+                        child: Card(
+                          elevation: 4.0,
+                          color: Colors.indigo.shade50,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 10),
+                              Image.asset('assets/icons/notification_icon.png', scale: 7),
+                              SizedBox(width: 10.0),
+                              Text("Notifications", style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500, fontSize: 17.0)),
+                            ],
+                          ),
+                        )
                     ),
                   ),
                 )

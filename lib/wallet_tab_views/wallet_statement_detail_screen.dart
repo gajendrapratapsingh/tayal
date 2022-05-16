@@ -191,41 +191,41 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                         ),
                       )
                     : ListView.separated(
-                        itemCount: _txnlist.length,
-                        padding: EdgeInsets.zero,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(height: 1, color: Colors.grey),
-                        itemBuilder: (BuildContext context, int index) {
-                          if (_txnlist.isEmpty || _txnlist.length == 0) {
-                            return Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.indigo));
-                          } else {
-                            return ListTile(
-                              title: Text(
-                                  '${_txnlist[index]['created_at'].toString()}',
-                                  style: TextStyle(
-                                      color: Colors.indigo.shade400,
-                                      fontSize: 16)),
-                              subtitle: Text(
-                                  '${_txnlist[index]['description'].toString()}',
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 12)),
-                              trailing: _txnlist[index]['transaction_type']
-                                          .toString() ==
-                                      "credit"
-                                  ? Text(
-                                      '\u20B9 ${_txnlist[index]['update_balance'].toString()} Credit',
-                                      style: const TextStyle(
-                                          color: Colors.green, fontSize: 12))
-                                  : Text(
-                                      '\u20B9 ${_txnlist[index]['update_balance'].toString()} Debit',
-                                      style: const TextStyle(
-                                          color: Colors.red, fontSize: 12)),
-                            );
-                          }
-                        },
-                      ))
+                      itemCount: _txnlist.length,
+                      padding: EdgeInsets.zero,
+                      separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(height: 1, color: Colors.grey),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (_txnlist.isEmpty || _txnlist.length == 0) {
+                          return Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.indigo));
+                        } else {
+                          return ListTile(
+                            title: Text(
+                                '${_txnlist[index]['created_at'].toString()}',
+                                style: TextStyle(
+                                    color: Colors.indigo.shade400,
+                                    fontSize: 16)),
+                            subtitle: Text(
+                                '${_txnlist[index]['description'].toString()}',
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 12)),
+                            trailing: _txnlist[index]['transaction_type']
+                                .toString() ==
+                                "credit"
+                                ? Text(
+                                '\u20B9 ${_txnlist[index]['update_balance'].toString()} Credit',
+                                style: const TextStyle(
+                                    color: Colors.green, fontSize: 12))
+                                : Text(
+                                '\u20B9 ${_txnlist[index]['update_balance'].toString()} Debit',
+                                style: const TextStyle(
+                                    color: Colors.red, fontSize: 12)),
+                          );
+                        }
+                      },
+                    ))
           ],
         ),
         Positioned(
@@ -267,7 +267,7 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
                 }
               },
               child: Container(
-                height: 55,
+                height: 45,
                 width: double.infinity,
                 color: Colors.indigo,
                 alignment: Alignment.center,
@@ -356,6 +356,7 @@ class _WalletStatementTabScrrenState extends State<WalletStatementTabScrren> {
 
     if (picked != null)
       setState(() {
+        _value = 0;
         selectedEndDate = picked;
         endDate = selectedEndDate.year.toString() +
             "-" +

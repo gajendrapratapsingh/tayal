@@ -78,7 +78,7 @@ class _HelpScreenState extends State<HelpScreen> {
                     color: Colors.indigo,
                     borderRadius: BorderRadius.circular(29.0)
                  ),
-                 child: Text("Report and Issue", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+                 child: const Text("Report and Issue", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
               ),
           ),
           Positioned(
