@@ -242,28 +242,31 @@ class _PaymentOptionsScreenState extends State<PaymentOptionsScreen> {
                             onTap: () {
                               _placeorderonline();
                             },
-                            child: Container(
-                              height: 55.0,
-                              width: double.infinity,
-                              child: Card(
-                                elevation: 4.0,
-                                color: Colors.indigo,
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                      color: Colors.indigo, width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Text(
-                                      "PAY BY WALLET : \u20B9 " +
-                                          double.parse(payableAmount)
-                                              .toStringAsFixed(2)
-                                              .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: Container(
+                                height: 55.0,
+                                width: double.infinity,
+                                child: Card(
+                                  elevation: 4.0,
+                                  color: Colors.indigo,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        color: Colors.indigo, width: 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 15.0),
+                                    child: Text(
+                                        "PAY BY WALLET : \u20B9 " +
+                                            double.parse(payableAmount)
+                                                .toStringAsFixed(2)
+                                                .toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500)),
+                                  ),
                                 ),
                               ),
                             ),
